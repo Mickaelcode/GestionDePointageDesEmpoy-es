@@ -1,0 +1,12 @@
+{
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar",
+            "/home/mick12ell/Téléchargements/postgresql-42.7.3.jar",
+            "/home/mick12ell/Téléchargements/itextpdf-5.5.9.jar"
+        ],
+        "exclude": [
+            "/media/mick12ell/Mika/itextpdf-5.4.0.jar"
+        ]
+    }
+}
