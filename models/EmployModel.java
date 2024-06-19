@@ -109,7 +109,7 @@ public class EmployModel {
     }
 
     public ResultSet rechercheEmploy() throws SQLException {
-        String query = " SELECT nom,prenom,poste,CONCAT(TO_CHAR(salaire, 'L99G999D99') as salaire FROM employe WHERE nom LIKE ? OR prenom LIKE ?";
+        String query = " SELECT * FROM employe WHERE nom LIKE ? OR prenom LIKE ?";
         try{
             PreparedStatement ps = connex.conn.prepareStatement(query);
             String search = "%" + n_numberEmploye +"%";

@@ -26,16 +26,6 @@ public class Conge {
         n_numEmp = numEmp;
         connex = new Connexion();
     }
-
-    // public Conge(String numConge,String numEmp,String motif,int nbJours) throws SQLException{
-    //     n_numConge = numConge;
-    //     n_numEmp = numEmp;
-    //     n_motif = motif;
-    //     n_nbJours = nbJours;
-      
-    
-    //     connex = new Connexion();
-    // }
     public Conge(String numConge,String numEmp,String motif,int nbJours,Timestamp dateDemande,Timestamp dateRetour) throws SQLException{
         n_numConge = numConge;
         n_numEmp = numEmp;

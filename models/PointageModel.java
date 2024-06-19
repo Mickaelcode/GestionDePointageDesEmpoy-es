@@ -149,7 +149,7 @@ public class PointageModel {
     }
 
     public ResultSet researchPointage(){
-        String query = " select * from pointage where to_char(datepointage, 'DD') like '"+n_datesupp+"' or to_char(datepointage, 'MM') like '"+n_datesupp+"' or to_char(datepointage, 'YYYY') like '"+n_datesupp+"'";
+        String query = " select * from pointage where to_char(datepointage, 'DD') like '"+n_datesupp+"' or to_char(datepointage, 'MM') like '"+n_datesupp+"' or to_char(datepointage, 'YYYY') like '"+n_datesupp+"'  or to_char(datepointage, 'DD-MM') like '"+n_datesupp+"'";
         try{
             Statement stm = connex.conn.createStatement();
             res = stm.executeQuery(query);
@@ -163,7 +163,7 @@ public class PointageModel {
 
     public ResultSet SearchDate(){
         String query = " select * from pointage where to_char(datepointage, 'YYY-MM-DD') like ?";
-            Statement stm = connex.conn.createStatement();
+            try{Statement stm = connex.conn.createStatement();
             res = stm.executeQuery(query);
             System.out.println("ok recherche"+res);
             return res;

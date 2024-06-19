@@ -41,20 +41,21 @@ import javax.imageio.ImageIO;
 import models.EmployModel;
 import models.PointageModel;
 
-public class PointageView extends JPanel{
+public class PointageView extends JPanel {
     private JTextField researchField;
-    private  JButton addBtn, modifBtn, saveBtn, deleteBtn, rechButton;
+    private JButton addBtn, modifBtn, saveBtn, deleteBtn, rechButton;
     private JComboBox employ;
     private JTable table;
     private DefaultTableModel tableModel;
     private int selectedRow = -1;
     private JRadioButton here, mis;
-    private JSpinner dateTime,dateTimeSearch;
+    private JSpinner dateTime, dateTimeSearch;
 
-    public PointageView(int m){
-        
+    public PointageView(int m) {
+
     }
-    public PointageView(){
+
+    public PointageView() {
         JLabel title = new JLabel("POINTAGE DES EMPLOYES");
         JLabel numLabel = new JLabel("Numero Employe:");
         JLabel rechLabel = new JLabel("Rechercher");
@@ -62,13 +63,13 @@ public class PointageView extends JPanel{
         JLabel datLabel = new JLabel("Date:");
         this.setBackground(Color.darkGray);
         this.setLayout(null);
-        
+
         researchField = new JTextField(15);
         researchField.setBounds(650, 60, 250, 30);
         rechLabel.setBounds(650, 30, 250, 30);
         this.add(researchField);
         this.add(rechLabel);
-        
+
         addBtn = new JButton("AJOUTER");
         addBtn.setBounds(350, 130, 100, 30);
         modifBtn = new JButton("MODIFIER");
@@ -78,23 +79,23 @@ public class PointageView extends JPanel{
         saveBtn.setVisible(false);
         deleteBtn = new JButton("SUPPRIMER");
         deleteBtn.setBounds(650, 130, 150, 30);
-        
+
         rechButton = new JButton();
         rechButton.setBackground(Color.BLUE);
         rechButton.setBounds(894, 60, 30, 30);
-        
+
         this.add(addBtn);
         this.add(modifBtn);
         this.add(saveBtn);
         this.add(deleteBtn);
         this.add(rechButton);
-        
+
         title.setBounds(390, 0, 300, 30);
         numLabel.setBounds(30, 30, 300, 30);
         pointagLabel.setBounds(200, 30, 300, 30);
         datLabel.setBounds(30, 100, 300, 30);
         Font police = new Font("Cursive", Font.BOLD, 19);
-        title.setFont(police );
+        title.setFont(police);
         title.setForeground(Color.white);
         numLabel.setForeground(Color.white);
         pointagLabel.setForeground(Color.white);
@@ -109,12 +110,10 @@ public class PointageView extends JPanel{
         saveBtn.setForeground(Color.white);
         deleteBtn.setBackground(Color.red);
         deleteBtn.setForeground(Color.white);
-        
 
-        
         this.add(pointagLabel);
         this.add(datLabel);
-        
+
         this.add(title);
         this.add(numLabel);
 
@@ -124,7 +123,7 @@ public class PointageView extends JPanel{
         mis.setBackground(Color.darkGray);
         here.setForeground(Color.white);
         mis.setForeground(Color.white);
-        
+
         JPanel div = new JPanel();
         div.setBackground(Color.darkGray);
         div.setBounds(150, 60, 200, 30);
@@ -147,24 +146,18 @@ public class PointageView extends JPanel{
         SpinnerDateModel dateModel = new SpinnerDateModel();
         dateTime = new JSpinner(dateModel);
 
-        //une autre date pour la recherche:
+        // une autre date pour la recherche:
 
         SpinnerDateModel dateModel2 = new SpinnerDateModel();
         dateTimeSearch = new JSpinner(dateModel);
 
-
-
-
-
         JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(dateTime, "dd//MM//yyyy HH:mm:ss");
         dateTime.setEditor(dateEditor);
 
+        // SPinner date editor pour la recherche:
 
-        //SPinner date editor pour la recherche:
-
-        JSpinner.DateEditor dateEditor2 = new JSpinner.DateEditor(dateTimeSearch,"dd//MM/yyy HH:mm:ss");
+        JSpinner.DateEditor dateEditor2 = new JSpinner.DateEditor(dateTimeSearch, "dd//MM/yyy HH:mm:ss");
         dateTimeSearch.setEditor(dateEditor2);
-
 
         JPanel paneldate = new JPanel();
         paneldate.add(dateTime);
@@ -173,7 +166,7 @@ public class PointageView extends JPanel{
         paneldate.setBackground(Color.darkGray);
         this.add(paneldate);
 
-        //ajout du date search dans un panel
+        // ajout du date search dans un panel
 
         JPanel panelDateSearch = new JPanel();
         panelDateSearch.add(dateTimeSearch);
@@ -182,17 +175,20 @@ public class PointageView extends JPanel{
         panelDateSearch.setBackground(Color.darkGray);
         this.add(panelDateSearch);
 
-        addBtn.addActionListener(new ActionListener(){
+        addBtn.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 String num = (String) employ.getSelectedItem();
                 String presence = "";
                 Date datetime = (Date) dateTime.getValue();
                 Timestamp time = new Timestamp(datetime.getTime());
-                if (here.isSelected() == true) presence = "Présent";
-                else if (mis.isSelected() == true) presence = "Absent";
-                int response = JOptionPane.showConfirmDialog(null, "Voulez-vous Ajouter?", "Confirmation", JOptionPane.YES_NO_OPTION);
-                if(response == JOptionPane.YES_OPTION){
+                if (here.isSelected() == true)
+                    presence = "Présent";
+                else if (mis.isSelected() == true)
+                    presence = "Absent";
+                int response = JOptionPane.showConfirmDialog(null, "Voulez-vous Ajouter?", "Confirmation",
+                        JOptionPane.YES_NO_OPTION);
+                if (response == JOptionPane.YES_OPTION) {
                     createPointage(time, num, presence);
                     JOptionPane.showMessageDialog(null, "Ajouter avec succès !");
                     clearData();
@@ -205,7 +201,8 @@ public class PointageView extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (selectedRow != -1) {
-                    int response = JOptionPane.showConfirmDialog(null, "Voulez-vous Modifier?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                    int response = JOptionPane.showConfirmDialog(null, "Voulez-vous Modifier?", "Confirmation",
+                            JOptionPane.YES_NO_OPTION);
                     if (response == JOptionPane.YES_OPTION) {
                         modifBtn.setVisible(false);
                         saveBtn.setVisible(true);
@@ -226,8 +223,10 @@ public class PointageView extends JPanel{
                 String date = (String) tableModel.getValueAt(selectedRow, 0);
                 String num = (String) employ.getSelectedItem();
                 String presence = "";
-                if (here.isSelected() == true) presence = "Présent";
-                else if (mis.isSelected() == true) presence = "Absent";
+                if (here.isSelected() == true)
+                    presence = "Présent";
+                else if (mis.isSelected() == true)
+                    presence = "Absent";
 
                 modifierPointage(date, num, presence);
                 JOptionPane.showMessageDialog(null, "Modification réussie !");
@@ -247,9 +246,10 @@ public class PointageView extends JPanel{
 
         deleteBtn.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 if (selectedRow != -1) {
-                    int response = JOptionPane.showConfirmDialog(null, "Êtes-vous sûr de vouloir supprimer ?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                    int response = JOptionPane.showConfirmDialog(null, "Êtes-vous sûr de vouloir supprimer ?",
+                            "Confirmation", JOptionPane.YES_NO_OPTION);
                     if (response == JOptionPane.YES_OPTION) {
                         String date = (String) tableModel.getValueAt(selectedRow, 0);
                         suppPointage(date);
@@ -266,27 +266,27 @@ public class PointageView extends JPanel{
             public void insertUpdate(DocumentEvent e) {
                 rechercheEnTempsReel();
             }
-    
+
             @Override
             public void removeUpdate(DocumentEvent e) {
                 rechercheEnTempsReel();
                 loadTableData();
             }
-    
+
             @Override
             public void changedUpdate(DocumentEvent e) {
                 rechercheEnTempsReel();
             }
-    
+
             private void rechercheEnTempsReel() {
                 String text = researchField.getText();
-                researchPointageView(text); 
+                researchPointageView(text);
             }
         });
 
-        dateTimeSearch.addChangeListener(new ChangeListener(){
+        dateTimeSearch.addChangeListener(new ChangeListener() {
             @Override
-            public void stateChanged(ChangeEvent e){
+            public void stateChanged(ChangeEvent e) {
                 System.out.println("OKKK");
 
             }
@@ -295,9 +295,9 @@ public class PointageView extends JPanel{
         loadTableData();
     }
 
-    public String [] dataCombox(){
-        String [] data = null;
-        try{
+    public String[] dataCombox() {
+        String[] data = null;
+        try {
             ArrayList<String> dataList = new ArrayList<String>();
             EmployModel employModel = new EmployModel();
             ResultSet res = employModel.selectEmploye();
@@ -306,7 +306,7 @@ public class PointageView extends JPanel{
                     dataList.add(res.getString("numemp"));
                 }
             }
-            data = new String[dataList.size()+1];
+            data = new String[dataList.size() + 1];
 
             int i = 0;
 
@@ -314,26 +314,26 @@ public class PointageView extends JPanel{
                 data[i] = dataList.get(i);
                 i++;
             }
-            data[dataList.size()] ="";
+            data[dataList.size()] = "";
             return data;
 
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return data;
     }
 
-    private void createPointage(Timestamp date, String num, String presence){
-        try{
+    private void createPointage(Timestamp date, String num, String presence) {
+        try {
             PointageModel pointage = new PointageModel(date, num, presence);
             pointage.addPointage();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        } 
+        }
     }
 
-    private JScrollPane createTablePanel(){
+    private JScrollPane createTablePanel() {
         tableModel = new DefaultTableModel();
         table = new JTable(tableModel);
         tableModel.addColumn("Date");
@@ -373,23 +373,24 @@ public class PointageView extends JPanel{
         }
     }
 
-    private void suppPointage(String date){
-        try{
+    private void suppPointage(String date) {
+        try {
             PointageModel pointageModel = new PointageModel(date);
             pointageModel.deletePointage();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
- 
-    private void modifierPointage(String date, String num, String presence){
-        try{
+
+    private void modifierPointage(String date, String num, String presence) {
+        try {
             PointageModel pointageModel = new PointageModel(date, num, presence);
             pointageModel.updatePointage();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     private void searchDatePointage(Timestamp dateTimestamp) {
         tableModel.setRowCount(0);
         try{
@@ -397,9 +398,9 @@ public class PointageView extends JPanel{
         }
     }
 
-    private void researchPointageView(String search){
+    private void researchPointageView(String search) {
         tableModel.setRowCount(0);
-        try{
+        try {
             PointageModel pointageModel = new PointageModel(search);
             ResultSet res = pointageModel.researchPointage();
             while (res.next()) {
@@ -409,7 +410,7 @@ public class PointageView extends JPanel{
                 row[2] = res.getString("pointage");
                 tableModel.addRow(row);
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -419,7 +420,7 @@ public class PointageView extends JPanel{
             String date = (String) tableModel.getValueAt(selectedRow, 0);
             String num = (String) tableModel.getValueAt(selectedRow, 1);
             String presence = (String) tableModel.getValueAt(selectedRow, 2);
-    
+
             // Convertir la date de String à Timestamp en assurant le format correct
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -428,10 +429,10 @@ public class PointageView extends JPanel{
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-    
+
             // Sélectionner l'employé dans le JComboBox
             employ.setSelectedItem(num);
-    
+
             // Sélectionner la présence dans les boutons radio
             if (presence.equals("Présent")) {
                 here.setSelected(true);
@@ -441,36 +442,35 @@ public class PointageView extends JPanel{
         }
     }
 
-    public void updateCombox(){
+    public void updateCombox() {
         employ.removeAllItems();
-        String [] data = dataCombox();
+        String[] data = dataCombox();
         for (String elem : data) {
             employ.addItem(elem);
-            
+
         }
         employ.setSelectedItem("");
         here.setSelected(false);
         mis.setSelected(false);
         this.add(employ);
 
-
     }
-    
-    private void clearData(){
+
+    private void clearData() {
         here.setSelected(false);
         mis.setSelected(false);
         employ.setSelectedItem("");
-        
+
     }
 
     // public void paintComponent(Graphics g){
-    //     try {
-    //         Image img = ImageIO.read(new File("./mety.jpg"));
-    //         g.drawImage(img, 0, 0, this);
-    //         } catch (IOException e) {
-    //         e.printStackTrace();
-    //         }
-        
+    // try {
+    // Image img = ImageIO.read(new File("./mety.jpg"));
+    // g.drawImage(img, 0, 0, this);
+    // } catch (IOException e) {
+    // e.printStackTrace();
     // }
-    
+
+    // }
+
 }
